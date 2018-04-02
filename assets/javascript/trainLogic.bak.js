@@ -59,47 +59,47 @@ $(document).ready(function(){
     // Alert
     alert("Train successfully added");
   
-    // // Clears all of the text-boxes
-    // $("#train-name-input").val("");
-    // $("#destination-input").val("");
-    // $("#start-input").val("");
-    // $("#rate-input").val("");
+    // Clears all of the text-boxes
+    $("#train-name-input").val("");
+    $("#destination-input").val("");
+    $("#start-input").val("");
+    $("#rate-input").val("");
   });
   console.log("some text");
   
-//   // 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
-//   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+  // 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
+  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   
-//     console.log(childSnapshot.val());
+    console.log(childSnapshot.val());
   
-//     // Store everything into a variable.
-//     var trainName = childSnapshot.val().name;
-//     var trainDestination = childSnapshot.val().destination;
-//     var trainStart = childSnapshot.val().start;
-//     var trainRate = childSnapshot.val().rate;
+    // Store everything into a variable.
+    var trainName = childSnapshot.val().name;
+    var trainDestination = childSnapshot.val().destination;
+    var trainStart = childSnapshot.val().start;
+    var trainRate = childSnapshot.val().rate;
   
-//     // train Info
-//     console.log(trainName);
-//     console.log(trainDestination);
-//     console.log(trainStart);
-//     console.log(trainRate);
+    // train Info
+    console.log(trainName);
+    console.log(trainDestination);
+    console.log(trainStart);
+    console.log(trainRate);
   
-//     // Prettify the train start
-//     var trainStartPretty = moment.unix(trainStart).format("MM/DD/YY");
+    // Prettify the train start
+    var trainStartPretty = moment.unix(trainStart).format("MM/DD/YY");
   
-//     // Calculate the months scheduled using hardcore math
-//     // To calculate the months arrivals
-//     var trainMonths = moment().diff(moment.unix(trainStart, "X"), "months");
-//     console.log(trainMonths);
+    // Calculate the months scheduled using hardcore math
+    // To calculate the months arrivals
+    var trainMonths = moment().diff(moment.unix(trainStart, "X"), "months");
+    console.log(trainMonths);
   
-//     // Calculate the total billed rate
-//     var trainScheduled = trainMonths * trainRate;
-//     console.log(trainScheduled);
+    // Calculate the total billed rate
+    var trainScheduled = trainMonths * trainRate;
+    console.log(trainScheduled);
   
 //     // Add each train's data into the table
-//     $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-//     trainStartPretty + "</td><td>" + trainMonths + "</td><td>" + trainRate + "</td><td>" + trainScheduled + "</td></tr>");
-//   });
+    $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
+    trainStartPretty + "</td><td>" + trainMonths + "</td><td>" + trainRate + "</td><td>" + trainScheduled + "</td></tr>");
+  });
   
   // Example Time Math
   // -----------------------------------------------------------------------------
