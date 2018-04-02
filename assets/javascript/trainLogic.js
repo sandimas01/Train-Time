@@ -30,7 +30,8 @@ $("#add-train-btn").on("click", function(event) {
   // Grabs user input
   var trainName = $("#train-name-input").val().trim();
   var trainDest = $("#dest-input").val().trim();
-  var trainTime = moment($("#time-input").val().trim(), "DD/MM/YY").format("X");
+//   var trainTime = moment($("#time-input").val().trim(), "DD/MM/YY").format("X");
+  var trainTime = $("#time-input").val().trim();
   var trainFreq = $("#freq-input").val().trim();
 
   // Creates local "ttrainorary" object for holding train data
@@ -38,7 +39,8 @@ $("#add-train-btn").on("click", function(event) {
     name: trainName,
     dest: trainDest,
     time: trainTime,
-    freq: trainFreq
+    freq: trainFreq,
+    timeAdded: firebase.database.ServerValue.TIMESTAMP
   };
 
   // Uploads train data to the database
@@ -78,20 +80,17 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   console.log(trainFreq);
 
   // Prettify the train time
-  var trainTimePretty = moment.unix(trainTime).format("MM/DD/YY");
+  var trainTimePretty = moment.unix(trainTime).format("HH:mm");
 
-  // Calculate the months worked using hardcore math
-  // To calculate the months worked
-  var trainMonths = moment().diff(moment.unix(trainTime, "X"), "months");
-  console.log(trainMonths);
 
-  // Calculate the total billed freq
-  var trainBilled = trainMonths * trainFreq;
-  console.log(trainBilled);
 
+  var trainMath = "2+2"
+  var trainMinutes = "min"
   // Add each train's data into the table
+//   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" +
+//   trainTimePretty + "</td><td>" + trainMonths + "</td><td>" + trainFreq + "</td><td>" + trainBilled + "</td></tr>");
   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" +
-  trainTimePretty + "</td><td>" + trainMonths + "</td><td>" + trainFreq + "</td><td>" + trainBilled + "</td></tr>");
+  trainTime + "</td><td>" + trainFreq + "</td><td>" + trainMath + "</td><td>" + trainMinutes + "</td></tr>");
 });
 
 // Example Time Math
