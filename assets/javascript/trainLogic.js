@@ -79,18 +79,42 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   console.log(trainTime);
   console.log(trainFreq);
 
-  // Prettify the train time
-  var trainTimePretty = moment.unix(trainTime).format("HH:mm");
+
+// train Time (pushed back 1 year to make sure it comes before current time)
+var trainTimeConverted = moment(trainTime, "hh:mm").subtract(1, "years");
+console.log(trainTimeConverted);
+
+// Current Time
+var currentTime = moment();
+console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+// Difference between the times
+var diffTime = moment().diff(moment(trainTimeConverted), "minutes");
+console.log("DIFFERENCE IN TIME: " + diffTime);
+
+// Time apart (remainder)
+var tRemainder = diffTime % trainFreq;
+console.log(tRemainder);
+
+// Minute Until Train
+var tMinutesTillTrain = trainFreq - tRemainder;
+console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+// Next Train
+var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
 
 
-  var trainMath = "2+2"
-  var trainMinutes = "min"
-  // Add each train's data into the table
+  var trainNext = moment(nextTrain).format("hh:mm");
+  var trainTimeDisplay = moment(trainTimeConverted).format("hh:mm");
+ 
+
+    // Add each train's data into the table
 //   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" +
 //   trainTimePretty + "</td><td>" + trainMonths + "</td><td>" + trainFreq + "</td><td>" + trainBilled + "</td></tr>");
   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" +
-  trainTime + "</td><td>" + trainFreq + "</td><td>" + trainMath + "</td><td>" + trainMinutes + "</td></tr>");
+  trainTimeDisplay + "</td><td>" + trainFreq + "</td><td>" + trainNext + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 });
 
 // Example Time Math
